@@ -32,18 +32,17 @@ namespace WeatherStation.Sensors
                 byte x0 = _device.ReadAddressByte(LPS_PRESS_OUT_XL);
                 byte x1 = _device.ReadAddressByte(LPS_PRESS_OUT_L);
                 byte x2 = _device.ReadAddressByte(LPS_PRESS_OUT_H);
-                pressureData = (float)((x2 << 16) + (x1 << 8) + x0) / 4096.0f;
+                pressureData = (float)((x2 << 16) + (x1 << 8) + x0) / 4096.0f; // hPA Hectopascal Pressure Unit
             }
             if ((_device.ReadAddressByte(LPS_STATUS) & 0x02) == 0x02)   // a new pressure data is generated
             {
                 byte x0 = _device.ReadAddressByte(LPS_TEMP_OUT_L);
                 byte x1 = _device.ReadAddressByte(LPS_TEMP_OUT_H);
-                tempData = (float)((x1 << 8) + x0) / 100.0f;
+                tempData = (float)((x1 << 8) + x0) / 100.0f; // Celcius
             }
 
             result.TemperatureC = tempData;
             result.Pressure = pressureData;
-
 
             return result;
         }
